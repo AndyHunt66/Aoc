@@ -4,6 +4,17 @@ use strict;
 use warnings;
 no warnings 'experimental';
 
+
+sub isTriangle
+{
+	my @sides = sort(@ARGV);
+	for (1..3)
+	{
+		$testSide = pop @sides;
+		
+	}
+}
+
 my $star = $0;   ## Which day of the challenge it is
 my $task = 1;    ## Which part of that day's challenge - 1 or 2
 
@@ -15,9 +26,9 @@ else
 {
 	die "I don't even know what day it is... $0 \n";
 }
-if (defined $ARGV[0])
+if  (defined $ARGV[0])
 {
-	$task=$ARGV[0];
+	 $task=$ARGV[0];
 }	
 my $inputFileName="./".$star."-input.txt";
 open INPUT, "$inputFileName" or die "Can't open Input file ($inputFileName) for reading - $! \n";
