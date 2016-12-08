@@ -27,8 +27,21 @@ sub task2Plot
 	return %plot;
 }
 
-
-sub moveTask2
+sub task1Plot
+{
+	my %plot;
+	$plot{"1"}=["X","2","4","X"];
+	$plot{"2"}=["X","3","5","1"];
+	$plot{"3"}=["X","X","6","2"];
+	$plot{"4"}=["1","5","7","X"];
+	$plot{"5"}=["2","6","8","4"];
+	$plot{"6"}=["3","X","9","5"];
+	$plot{"7"}=["4","8","X","X"];
+	$plot{"8"}=["5","9","X","7"];
+	$plot{"9"}=["6","X","X","8"];
+	return %plot;	
+}
+sub moveTask
 {
 	my @moves=split("",$_[0]);
 	my $position = 5 ; ## start position
@@ -59,39 +72,6 @@ sub moveTask2
 	}	
 	return $position;
 }
-sub moveTask1
-{
-	my @moves=split("",$_[0]);
-	my $position = 5 ; ## Starting position
-	if (defined $_[1])
-	{
-		$position = $_[1];
-	}
-
-	foreach (@moves)
-	{
-		my $move = $_;
-		if (/\n/)
-		{
-			## line feed - ignoring
-			next;
-		}
-		for ($move)
-		{
-		 when ("U") 
-		 {if ($position-3 > 0) { $position -= 3;} }
-		 when ("D")
-		 {if ($position+3 < 10 ) { $position += 3;} }
-		 when ("L")
-		 {if (ceil(($position-1)/3) == ceil($position/3) ){ $position -= 1;} }
-		 when ("R")
-		 {if (ceil(($position+1)/3) == ceil($position/3)) { $position += 1;} }
-		}	
-		#print "Moving $move to $position \n";
-	}
-	
-	return $position;
-}
 
 
 my $star = $0;   ## Which day of the challenge it is
@@ -120,56 +100,26 @@ open INPUT, "$inputFileName" or die "Can't open Input file ($inputFileName) for 
 print "Day ".$star."\n";
 print "Task ".$task."\n\n";
 
-if ($task eq 2)
+if ($task eq 1)
+{
+	%plot = task1Plot;
+}
+elsif ($task eq 2)
 {
 	%plot = task2Plot;
 }
-
-## run tests
-my $test = moveTask1("ULL\n");
-if ($test == 1) { print "Test 1 passed\n\n";} else { die "Test 1 failed: $test should be 1" }
-
-$test = moveTask1("ULL\nRRDDD");
-if ($test == 9) { print "Test 2 passed\n\n";} else { die "Test 2 failed: $test should be 9" }
-
-$test = moveTask1("ULLRRDDDLURDLUUUUD");
-if ($test == 5) { print "Test 3 passed\n\n";} else { die "Test 3 failed: $test should be 5" }
-
-$test = moveTask1("ULUULLUULUUUUDURUUULLDLDDRDRDULULRULLRLULRUDRRLDDLRULLLDRDRRDDLLLLDURUURDUDUUURDRLRLLURUDRDULURRUDLRDRRLLRDULLDURURLLLULLRLUDDLRRURRLDULRDDULDLRLURDUDRLLRUDDRLRDLLDDUURLRUDDURRLRURLDDDURRDLLDUUDLLLDUDURLUDURLRDLURURRLRLDDRURRLRRDURLURURRRULRRDLDDDDLLRDLDDDRDDRLUUDDLDUURUULDLUULUURRDRLDDDULRRRRULULLRLLDDUDRLRRLLLLLDRULURLLDULULLUULDDRURUDULDRDRRURLDRDDLULRDDRDLRLUDLLLDUDULUUUUDRDRURDDULLRDRLRRURLRDLRRRRUDDLRDDUDLDLUUDLDDRRRDRLLRLUURUDRUUULUDDDLDUULULLRUDULULLLDRLDDLLUUDRDDDDRUDURDRRUUDDLRRRRURLURLD");
-if ($test == 5) { print "Test 4 passed\n\n";} else { die "Test 4 failed: $test should be 5" }
-
-$test = moveTask2("RRR\n");
-if ($test == 8) { print "Test 5 passed\n\n";} else { die "Test 5 failed: $test should be 8" }
-
-$test = moveTask2("ULL\n",5);
-if ($test == 5) { print "Test 6 passed\n\n";} else { die "Test 6 failed: $test should be 5" }
-
-$test = moveTask2("RRDDD\n",5);
-if ($test eq "D") { print "Test 7 passed\n\n";} else { die "Test 7 failed: $test should be D" }
-
-$test = moveTask2("LURDL\n","D");
-if ($test eq "B") { print "Test 8 passed\n\n";} else { die "Test 8 failed: $test should be B" }
-
-$test = moveTask2("UUUUD\n","B");
-if ($test eq "3") { print "Test 9 passed\n\n";} else { die "Test 9 failed: $test should be 3" }
 
 
 
 my $start = 5;
 my $result ;
+my $data;
 
-	my $data;
+	print "Starting at $start\n";
 	while (<INPUT>)
 	{
-		chomp;
-		if ($task eq 1)
-		{
-			 $start=moveTask1($_,$start); 
-		}
-		if ($task eq 2)
-		{
-			 $start=moveTask2($_,$start); 
-		}
+		#chomp;
+		$start=moveTask($_,$start); 
 		$result= $result.$start;
 		print "Next number: $start\n";
 	}
