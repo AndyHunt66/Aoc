@@ -3,6 +3,7 @@
 use feature "switch";
 use strict;
 use warnings;
+no warnings 'experimental';
 
 my $star = $0;
 if ($star =~ /\\(\d+)-go.pl/)
@@ -25,14 +26,14 @@ my @input = split(",",$line);
 
 
 
-print "First Instruction: $input[0] \n";
+#print "First Instruction: $input[0] \n";
 
 my @directions=('N','E','S','W');
-my $direction = 0;
+my $direction = 0;  ## Facing North to start with
 my @location=(0,0); ## x,y
 
 my %locations;
-$locations{"0,0"}=1;
+$locations{$location[0].",".$location[1]}=1;
 my $arrived = "false";
 foreach (@input)
 {
@@ -45,13 +46,18 @@ foreach (@input)
 		my $steps = $2;
 		if ($turn eq "R")
 		{
-			print "Turning right to walk ".$steps." steps ".$directions[($direction + 1)%4];
 			$direction = ($direction + 1 ) % 4;
+			print "Turning right to walk ".$steps." steps ".$directions[$direction];
+			
 		}
 		elsif ($turn eq "L")
 		{
-			print "Turning left to walk ".$steps." steps ".$directions[($direction - 1)%4];
 			$direction = ($direction - 1)%4;
+			print "Turning left to walk ".$steps." steps ".$directions[$direction];
+		}
+		else
+		{
+			die "I've just got no idea where I'm going... $_ \n";
 		}
 		
 		for (my $step =0;$step < $steps;$step++)
