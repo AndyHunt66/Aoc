@@ -7,7 +7,7 @@ no warnings 'experimental';
 my $star = $0;   ## Which day of the challenge it is
 my $task = 1;    ## Which part of that day's challenge - 1 or 2
 
-if ($star =~ /\\(\d+)-go.pl/)
+if ($star =~ /[\\\/](\d+)-go.pl/)
 {
 	$star=$1;
 }
