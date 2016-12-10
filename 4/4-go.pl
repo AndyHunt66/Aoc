@@ -25,7 +25,7 @@ sub isRoomReal
 	{
   	$letters{$b} <=> $letters{$a}
     or
-  	"\L$a" cmp "\L$b"
+  	"\L$a" cmp "\L$b" 
   } keys %letters;
 	
 	
