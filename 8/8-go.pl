@@ -27,17 +27,25 @@ sub rect
 
 sub printBoard
 {
+	my $totalLit = 0;
 	print "\n";
 	for(my $row=0;$row<$bRows;$row++)
 	{
 		for(my $col=0;$col<$bCols;$col++)
 		{
-			print $board[$col][$row];	
+			if ($col % 5 == 0) { print " ";}
+			if ($board[$col][$row] eq "1")
+			{
+				print $board[$col][$row];	
+				$totalLit++;
+			}
+			else { print " ";}
 		}			
 		print "\n";
 	}
 		
 	print "\n";
+	print "Total Lit: ".$totalLit."\n";
 	
 	
 }
@@ -64,7 +72,7 @@ sub rotate
 	{
 		for (1..$amount)
 		{
-				push @{@board[$target]}, pop @{@board[$target]};
+			unshift @{$board[$target]}, pop @{$board[$target]};
 		}	
 	}
 	
@@ -80,26 +88,26 @@ for(my $colCount=0;$colCount<$bCols;$colCount++)
 	push @board, \@col;
 }
 
-### Tests:
-rect(3,2);
-printBoard;
+sub runTests
+{
+	### Tests:
+	rect(3,2);
+	printBoard;
 
-rotate("row",1,2);
-printBoard;
+	rotate("row",1,2);
+	printBoard;
 
-rotate("column",2,4);
-printBoard;
+	rotate("column",2,4);
+	printBoard;
+	
+	print "Board 3,3: ".$board[3][3]."\n";
+	print "Board 3,2: ".$board[3][2]."\n";
+	print "Board 3,1: ".$board[3][1]."\n";
+	print "Board 2,1: ".$board[2][1]."\n";
+	print "Board 1,2: ".$board[1][2]."\n";
+	print "Board 4,0: ".$board[4][0]."\n";
+}
 
-
-
-print "Board 3,3: ".$board[3][3]."\n";
-print "Board 3,2: ".$board[3][2]."\n";
-print "Board 3,1: ".$board[3][1]."\n";
-print "Board 2,1: ".$board[2][1]."\n";
-print "Board 1,2: ".$board[1][2]."\n";
-print "Board 4,0: ".$board[4][0]."\n";
-
-die; 
 
 if ($star =~ /[\\\/](\d+)-go.pl/)
 {
@@ -119,17 +127,27 @@ open INPUT, "$inputFileName" or die "Can't open Input file ($inputFileName) for 
 print "Day ".$star."\n";
 print "Task ".$task."\n\n";
 
-## Single line reading
-my $input = <INPUT>;
-chomp $input;
-
 
 ## Multi line reading
 while (<INPUT>)
 {
 	my $line = $_;
 	chomp $line;
-	
+	my @commands = split(" ",$line);
+	if ($commands[0] eq "rect")
+	{
+		rect(split("x",$commands[1]));
+		#printBoard();
+	}
+	elsif ($commands[0] eq "rotate")
+	{
+		rotate($commands[1], substr($commands[2],2),$commands[4]);
+		#printBoard();
+	}
+	else
+	{
+		die "Don't understand command: $line \n";
+	}
 	
 }
-print "InputFileName = $inputFileName \n";
+printBoard;
