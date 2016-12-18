@@ -1,4 +1,4 @@
-#!perl
+#!/usr/bin/perl
 
 use strict;
 use warnings;
@@ -26,24 +26,24 @@ sub includesAbba
 sub includesAba
 {
 	my $chunk = $_[0];
-	my @abas = $chunk=~/(.)(.)(\1)/g;
-	my @abaLetters;
-	for (my $count=0;$count<scalar(@abas);$count=$count+3)
+	my @foundAbas;
+	for (my $count=0;$count<length($chunk)-2;$count++)
 	{
-		push @abaLetters, $abas[$count].$abas[$count+1].$abas[$count+2];
-	}
-	
-	my @filteredAbas;
-	while  (defined @abaLetters[0])
-	{
-		my $shifted= shift @abaLetters;
-		if (substr($shifted,0,1) ne substr($shifted,1,1))
+		my $char=substr($chunk, $count,1);
+		my $charPlusOne= substr($chunk, $count+1,1);
+		my $charPlusTwo= substr($chunk, $count+2,1);
+		
+		if ( 
+		    ($char eq $charPlusTwo) && 
+				($char ne $charPlusOne)  
+			 )
 		{
-			push @filteredAbas, $shifted;
-			#print "Adding shifted : $shifted \n";
+			push @foundAbas, $char.$charPlusOne.$charPlusTwo;
 		}
+		
+		
 	}
-	return @filteredAbas;
+	return @foundAbas;
 }
 sub supportsSSL
 {
