@@ -1,5 +1,4 @@
 ﻿#!/usr/bin/perl
-
 use strict;
 use warnings;
 
@@ -11,19 +10,8 @@ my $total=0;
 
 while (<INPUTFILE>)
 {
-#print "LINE: ".$_."\n";
-	my @numbers=split(/[ \t]/,$_);
-	my $lineMax=$numbers[0];
-	my $lineMin=$numbers[0];
-
-	foreach(@numbers)
-	{
-		my $current = $_;
-#		print "NUMBER: ". $current."\n";
-		if ($current > $lineMax) {$lineMax=$current}
-		if ($current < $lineMin) {$lineMin=$current}
-	}
-	$total=$total+($lineMax - $lineMin);
+	my @numbers=sort {$a <=> $b} split(/[ \t]/,$_);
+	$total+=($numbers[$#numbers] - $numbers[0]);
 }
 print "TOTAL: ".$total."\n";
 
