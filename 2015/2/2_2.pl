@@ -1,6 +1,8 @@
 ﻿#!/usr/bin/perl
+
 use strict;
 use warnings;
+
 
 my $inputFileName = "./input.txt";
 
@@ -10,8 +12,8 @@ my $total=0;
 
 while (<INPUTFILE>)
 {
-	my @numbers=sort {$a <=> $b} split(/[ \t]/,$_);
-	$total+=($numbers[$#numbers] - $numbers[0]);
+	my @sides=sort {$a <=> $b} split(/x/,$_);
+	$total = $total + ( (2 *  $sides[0]) + (2*$sides[1])  + ($sides[0]*$sides[1]*$sides[2]) )
 }
-print "TOTAL: ".$total."\n";
+print "TOTAL: ".($total)."\n";
 

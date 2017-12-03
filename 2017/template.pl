@@ -6,7 +6,7 @@ use warnings;
 my $inputFileName = "./input";
 my $outputFileName = "./output.txt";
 
-my $cmdLineInput = $_[0];
+my $cmdLineInput = $ARGV[0];
 
 open INPUTFILE, "$inputFileName" or die "Couldn't open InputFile $inputFileName for reading - $!\n";
 open OUTPUTFILE, ">$outputFileName" or die "Couldn't open outputFile $outputFileName for writing - $!\n";
