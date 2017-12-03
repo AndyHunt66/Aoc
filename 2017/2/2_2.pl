@@ -22,7 +22,7 @@ while (<INPUTFILE>)
 			my $divisor = $numbers[$innerCount];
 			if (($dividend % $divisor)==0)
 			{
-				$total = $total + ($dividend/$divisor);
+				$total += ($dividend/$divisor);
 				last;
 			}
 		}
