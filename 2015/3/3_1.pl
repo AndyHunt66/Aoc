@@ -27,13 +27,23 @@ while (<INPUTFILE>)
   }
 }
 
+print "HOUSES: ".(keys %places)."\n";
+die;
+
 my $multiples=0;
+my $count=0;
 foreach  (keys %places)
 {
+  $count++;
   if ($places{$_} > 1)
   {
      $multiples++;
+    	print "COUNT: ".$count."   PLACE:". $_." - visited:" . $places{$_}." MORE THAN ONCE\n";
   }
+	else
+	{
+		    	print "COUNT: ".$count."   PLACE:". $_." - visited:" . $places{$_}." ONCE\n";
+	}
 }
 print "MULTIPLES: ".$multiples."\n";
 ## 1762 is too low
