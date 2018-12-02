@@ -47,11 +47,13 @@ while(1)
 	my $pattern = join(',',@banks);
 	if ($patterns{$pattern})
 	{
-		die "Found duplicate pattern in $steps steps: \n". $pattern."\n";
+		print "Found duplicate pattern in $steps steps: \n". $pattern."\n";
+		print "loopsize = $steps - $patterns{$pattern} == ".($steps - $patterns{$pattern})."\n";
+		die;
 	}
 	else
 	{
-		$patterns{$pattern}=1;
+		$patterns{$pattern}=$steps;
 		print " $pattern \n";
 	}
 
