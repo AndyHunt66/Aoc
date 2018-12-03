@@ -8,13 +8,7 @@ my $inputFileName = "./input.txt";
 open INPUTFILE, "$inputFileName" or die "Couldn't open InputFile $inputFileName for reading - $!\n";
 
 my @fabric;
-for my $i (0..1000)
-{
-    for my $j (0..1000)
-    {
-        $fabric[$i][$j]=0;
-    }
-}
+
 
 my %totals;
 while (<INPUTFILE>)
