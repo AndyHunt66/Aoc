@@ -56,9 +56,59 @@ foreach my $record (sort keys %records)
 			$guards{$guardId}[$count]++;
 		}
 	 	print "and woke up at $minute \n";
-	 	<>;
+	}
+};
+
+my %guardsAsleep;
+my $highestGuardId;
+my $highestGuardMinutes=0;
+foreach $guardId (keys %guards)
+{
+	
+	for (my $count=0;$count<=59;$count++)
+	{
+#		print "Minute $count\n";
+		if (defined $guards{$guardId}[$count])
+		{
+#			print "minute $count - $guards{$guardId}[$count]\n";
+
+			if (defined $guardsAsleep{$guardId})
+			{
+#				print $guardsAsleep{$guardId} ." -- ". $guards{$guardId}[$count]."\n";
+				$guardsAsleep{$guardId}=$guardsAsleep{$guardId} + $guards{$guardId}[$count];
+			}
+			else
+			{
+				$guardsAsleep{$guardId}=$guards{$guardId}[$count];
+#				print "Sleepy time; ".$guardsAsleep{$guardId}."\n";
+			}
+		}
+		else
+		{
+#			print "minute $count - Nothing\n";
+		}
+	}
+	if ($guardsAsleep{$guardId} > $highestGuardMinutes)
+	{
+		print "Highest So far: $highestGuardMinutes\n";
+		$highestGuardMinutes = $guardsAsleep{$guardId};
+		$highestGuardId=$guardId;
 	}
 	
+}
 
-	
-};
+print "Guard $highestGuardId slept for $highestGuardMinutes \n";
+my $guardHighestMinuteValue=0;
+my $guardHighestMinute;
+for (my $count=0;$count<=59;$count++)
+{
+	if (!defined $guards{$highestGuardId}[$count]) { next;}
+	if ($guards{$highestGuardId}[$count] > $guardHighestMinuteValue)
+	{
+		$guardHighestMinuteValue = $guards{$highestGuardId}[$count];
+		$guardHighestMinute = $count;
+	}
+}
+
+print "Guard $highestGuardId was asleep $guardHighestMinuteValue times in minute $guardHighestMinute \n";
+print "Answer is : ".$highestGuardId * $guardHighestMinute."\n";
