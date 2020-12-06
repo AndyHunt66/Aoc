@@ -47,6 +47,7 @@ for ( @entries )
 }
 
 #Add the last group
+## Make sure to add an extra blank line at the end of the input file, so that the last group is processed
 
 print "Total = $runningTotal \n";
     die;
