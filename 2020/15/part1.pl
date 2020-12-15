@@ -7,17 +7,13 @@ use warnings;
 my $input = './input';
 
 my $MAXTURN = 30000000;
+
 my @entries;
-my $inputs = "";
 open INPUTFILE, "$input" or die "Can't open input file $input for reading - $! \n";
 chomp(@entries = <INPUTFILE>);
 close INPUTFILE;
 
 @entries = split /,/ , $entries[0];
-
-print $entries[0]."\n";
-print $entries[1]."\n";
-print $entries[2]."\n";
 
 my %track;
 my $turn = 0;
