@@ -2,19 +2,16 @@ import sys
 
 #inFile = './testInput.txt'
 inFile = './input.txt'
-depth=0
-xAxis=0
-aim=0
-
+depth, xAxis, aim = 0,0,0
 
 for line in open(inFile, 'r'):
-  direction = line[0]
-  magnitude = int(line[line.index(" ")+1:len(line)])
-  if (direction == "d"):
+  direction, magnitude = line.split(' ')
+  magnitude = int(magnitude)
+  if (direction == "down"):
     aim+=magnitude
-  elif (direction == "u"):
+  elif (direction == "up"):
     aim-=magnitude
-  elif (direction == "f"):
+  elif (direction == "forward"):
     xAxis+=magnitude
     depth=depth+(aim *magnitude)
   else:
