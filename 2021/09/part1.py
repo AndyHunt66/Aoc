@@ -2,8 +2,16 @@ import copy
 import sys
 import re
 
-inFile = './testInput.txt'
-# inFile = './input.txt'
+# inFile = './testInput.txt'
+inFile = './input.txt'
+
+
+class colours: # You may need to change color settings
+    RED = '\033[31m'
+    YELLOW = '\033[33m'
+    GREEN = '\033[32m'
+    BLUE = '\033[34m'
+    ENDC = '\033[m'
 
 ## True if the first coordinate pair is LOWER than the 2nd
 def compare2Spots(y,x,y1,x1):
@@ -55,7 +63,22 @@ for j in range(caveYAxis):
             risk+=caveFloor[j][i] + 1
 
 
-print("CaveFloor : ", caveFloor)
+print("CaveFloor : ")
+colour = colours.RED
+for xLine in caveFloor:
+    printCommand="";
+    for floor in xLine:
+        if floor == 9:
+            colour = colours.RED
+        if floor == 8 or floor == 7 or floor == 6:
+            colour = colours.YELLOW
+        if floor == 5 or floor == 4 or floor == 3:
+            colour = colours.GREEN
+        if floor == 2 or floor == 1 or floor == 0:
+            colour = colours.BLUE
+        printCommand+=colour
+        printCommand+=str(floor)
+    print(printCommand, colours.ENDC)
 print("Cave floor width : ",caveXAxis)
 print("Cave floor depth : ", caveYAxis)
 print("Risk  ", risk)
