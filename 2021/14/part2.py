@@ -1,19 +1,13 @@
-## This doesn't work.
-## It works for the testInput and is several orders of magnitude faster than part1.py
-## but it undercounts when run against the full list (the current configuration) and I have no idea why.
-
-import copy
 from collections import defaultdict
 
 
 def newinsert(localtemplate: dict, subs: dict) -> dict:
-    newTemplate = copy.deepcopy(localtemplate)
+#    newTemplate = copy.deepcopy(localtemplate)
+    newTemplate = defaultdict(lambda: [])
     for insertionpoint in localtemplate.keys():
         if localtemplate[insertionpoint] == 0:
             continue
         inserted = subs[insertionpoint[0] + insertionpoint[1]]
-
-        newTemplate[insertionpoint] = newTemplate[insertionpoint] - localtemplate[insertionpoint]
 
         if newTemplate[insertionpoint[0], inserted]:
             newTemplate[insertionpoint[0], inserted] += localtemplate[insertionpoint]
@@ -49,14 +43,14 @@ def maxandMinElement(localtemplate: dict[str, int]) -> dict:
 
 
 ## Are we running Part 1 or Part 2 of the puzzle?
-PART = 1
+PART = 2
 numiterations = 0
 if PART == 1:
     numiterations = 10
 else:
     numiterations = 40
 
-# inFile = './testInput1.txt'
+#inFile = './testInput1.txt'
 inFile = './input.txt'
 
 substitutions = dict()
@@ -72,7 +66,10 @@ with open(inFile, 'r') as fh:
             linelist = list(line.strip())
             firstTwoElements = (linelist[0], linelist[1])
             for x, y in zip(linelist, linelist[1:]):
-                template[(x, y)] = 1
+                if template[(x,y)]:
+                    template[(x,y)] += 1
+                else:
+                    template[(x, y)] = 1
 
 
 print(substitutions)
