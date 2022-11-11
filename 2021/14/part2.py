@@ -38,6 +38,9 @@ def maxandMinElement(localtemplate: dict[str, int]) -> dict:
         else:
             countinglist[element2] = localtemplate[element1, element2]
 
+    # Accomodate the first element
+    countinglist[firstTwoElements[0]] += localtemplate[firstTwoElements]
+
     commonestLetter = max(countinglist, key=countinglist.get)
     commonestCount = countinglist.get(commonestLetter)
     leastLetter = min(countinglist, key=countinglist.get)
