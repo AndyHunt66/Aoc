@@ -1,27 +1,17 @@
-from collections import defaultdict
-
-#inFile = './testInput.txt'
+# inFile = './testInput.txt'
 inFile = './input.txt'
 
-# Defining the dict
-scores = defaultdict(lambda: 0)
+
 # A = rock
 # B = paper
 # C = scissors
 # X = Lose
 # Y = draw
 # Z = Win
-scores["A X"] = 3 # Lose to rock - scissors
-scores["A Y"] = 4
-scores["A Z"] = 8
-scores["B X"] = 1
-scores["B Y"] = 5
-scores["B Z"] = 9
-scores["C X"] = 2
-scores["C Y"] = 6
-scores["C Z"] = 7
 
-strategy = open(inFile).read().split("\n")
+scores = {"A X": 3, "A Y": 4, "A Z": 8, "B X": 1, "B Y": 5, "B Z": 9, "C X": 2, "C Y": 6, "C Z": 7}
+
+strategy = open(inFile).read().strip().split("\n")
 score = sum(scores[go] for go in strategy)
 
 print(score)
