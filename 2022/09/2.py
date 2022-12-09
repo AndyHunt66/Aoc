@@ -1,13 +1,12 @@
-import math
+from math import floor
 from collections import defaultdict
-
-import numpy
+import numpy as np
 
 # inFile = './testInput.txt'
 # inFile = './testInput2.txt'
 inFile = './input.txt'
 
-ropeLength = 9
+ropeLength = 10  # 9 knots and the head = 10
 
 with open(inFile) as f:
     instructions = [(d, int(l)) for d, l in [i.split() for i in f.read().split("\n")]]
@@ -19,28 +18,23 @@ for knot in range(ropeLength):
         priorRoute = route
         route = []
         for move in priorRoute:
-            previousHead = head
             head = move
-            # if not adjacent
             if (abs(head[0]-tail[0]) == 2 and abs(head[1]-tail[1]) == 1) \
                     or (abs(head[0]-tail[0]) == 1 and abs(head[1]-tail[1]) == 2) \
                     or (abs(head[0]-tail[0]) == 2 and abs(head[1]-tail[1]) == 2):
                 # Diagonal move
-                tail = (tail[0] + numpy.sign(head[0]-tail[0]), tail[1] + numpy.sign(head[1] - tail[1]))
+                tail = (tail[0] + np.sign(head[0]-tail[0]), tail[1] + np.sign(head[1] - tail[1]))
 
             elif abs(head[0]-tail[0]) > 1 or abs(head[1]-tail[1]) > 1:
                 # straight move
-                tail = (tail[0] + math.floor((head[0]-tail[0])/2), tail[1] + math.floor((head[1]-tail[1])/2))
+                tail = (tail[0] + floor((head[0]-tail[0])/2), tail[1] + floor((head[1]-tail[1])/2))
 
             route.append(tail)
 
     else:
-        route = []
-        # route.append(tail)
-
+        route = [head]
         for direction, distance in instructions:
-            for i in range(distance):
-                previousHead = head
+            for _ in range(distance):
                 if direction == "R":
                     head = (head[0]+1, head[1])
                 elif direction == "L":
@@ -51,13 +45,10 @@ for knot in range(ropeLength):
                     head = (head[0], head[1]-1)
                 else:
                     print("Something's gone wrong:", head, tail)
-
-                # if not adjacent
-                if abs(head[0]-tail[0]) > 1 or abs(head[1]-tail[1]) > 1:
-                    tail = previousHead
-                route.append(tail)
+                route.append(head)
 
     visited = defaultdict(lambda: 0)
     for position in route:
         visited[position] += 1
-    print("number of places visited by knot number :", knot+1, len(visited))
+
+    print("number of places visited by knot number :", knot, len(visited))
