@@ -3,7 +3,6 @@ import re
 # inFile = './testInput.txt'
 inFile = './input.txt'
 
-badges = []
 f = open(inFile, 'r')
 input = [line.strip() for line in f.readlines()]
 
