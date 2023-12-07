@@ -1,4 +1,4 @@
-# https://adventofcode.com/2023/day/3
+# https://adventofcode.com/2023/day/6
 
 # inFile = './testInput.txt'
 inFile = './input.txt'
