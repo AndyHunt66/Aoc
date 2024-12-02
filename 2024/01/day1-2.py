@@ -1,7 +1,7 @@
 from collections import defaultdict
 
-# inFile = './testInput.txt'
-inFile = './input.txt'
+inFile = './testInput.txt'
+# inFile = './input.txt'
 
 f = open(inFile, 'r')
 inputValues = [line.strip() for line in f.readlines()]
