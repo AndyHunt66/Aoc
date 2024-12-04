@@ -5,9 +5,7 @@ inFile = './input.txt'
 
 f = open(inFile, 'r')
 grid = np.array([list(line.strip()) for line in f.readlines()])
-# print(grid)
 transGrid = np.transpose(grid)
-# print(transGrid)
 
 forwards = ['X','M','A','S']
 backwards = ['S','A','M','X']
@@ -18,9 +16,6 @@ crossMas4 = ['S','S','A','M','M']
 
 p1Found = 0
 p2Found = 0
-
-diagDownRight = 0
-diagDownLeft = 0
 
 for j in  range(len(grid)):
     for i in range(len(grid[j])):
