@@ -15,7 +15,7 @@ prizes = []
 for machineLines in f.read().split('\n\n'):
     arr = []
     for line in machineLines.split('\n'):
-        arr.append(re.findall(r'(\d+)', line))
+        arr.append(re.findall(r'\d+', line))
     moves.append(np.array([arr[0], arr[1]], dtype=np.int64))
     prizes.append(np.array(arr[2],dtype=np.int64))
 
