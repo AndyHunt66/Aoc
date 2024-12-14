@@ -6,7 +6,7 @@ inFile = './input.txt'
 def printrobots(robotspos):
     telltale = '**********'
     tentative = False
-    fieldmap = [ ['.'] * FieldX for i in range(FieldY)]
+    fieldmap = [['.'] * FieldX for _ in range(FieldY)]
     for printrobot in robotspos:
         fieldmap[printrobot[1]][printrobot[0]] = '*'
     for line in fieldmap:
