@@ -39,4 +39,3 @@ while True:
         robot[0] = (robot[0] + robot[2]) % FieldX
         robot[1] = (robot[1] + robot[3]) % FieldY
     printrobots(robots)
-
