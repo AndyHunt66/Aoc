@@ -28,8 +28,6 @@ for gate in g:
 print(signals)
 print(gates)
 
-
-# exit()
 tick = 0
 while(True):
     tick = tick +1
@@ -48,7 +46,7 @@ while(True):
     if allDone(gates):
         break
 print(signals)
-
+print("number of ticks:",tick)
 output = [str(signals[x]) for x in sorted(signals,reverse=True) if x.startswith('z')]
 output = ''.join(output)
 print(int(output,2))
