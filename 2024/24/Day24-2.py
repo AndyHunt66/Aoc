@@ -5,6 +5,7 @@ import time
 inFile = './testInput.txt'
 inFile = './testInput2.txt'
 inFile = './input.txt'
+inFile = './input2.txt'
 
 def allDone(gates):
     for gate in gates:
@@ -50,6 +51,7 @@ while(True):
     tick = tick +1
 
 print(signals)
+print(gates)
 print("number of ticks:",tick)
 output = [str(signals[x]) for x in sorted(signals,reverse=True) if x.startswith('z')]
 output = ''.join(output)
@@ -92,18 +94,18 @@ print("mismatch:             ",bin(mismatch).replace("0b", ""))
 # z17, z18
 # something to flip all of 14,15,16 with 22,23,24
 
-# tfw  OR cgt -> z14    (0 OR 1) = 1
-# vqs XOR vss -> z15
-# rgp XOR bth -> z16
-# cjd XOR qtn -> z17
-# jhw XOR tcv -> z18
-# kdh XOR gjn -> z22
-# tks XOR sbg -> z23
-# dwh XOR hsk -> z24
-# rmw XOR psg -> z25
+# tfw  OR cgt -> z14  ctt for cgt
+# vqs XOR vss -> z15  z35 for z15
+# rgp XOR bth -> z16  ctt for cgt
+# cjd XOR qtn -> z17  ctt for cgt
+# jhw XOR tcv -> z18  ctt for cgt
+# kdh XOR gjn -> z22  kdh for tks
+# tks XOR sbg -> z23  kdh for tks
+# dwh XOR hsk -> z24  kdh for tks
+# rmw XOR psg -> z25  kdh for tks
 # nrr AND sms -> z31
 # gds XOR ghr -> z32
-# y35 AND x35 -> z35
+# y35 AND x35 -> z35  z35 for z15
 # rqf XOR pqn -> z36
 # jqd XOR mhc -> z37
 
@@ -112,6 +114,16 @@ print("mismatch:             ",bin(mismatch).replace("0b", ""))
 # ttd AND nhg -> tfw   (0 AND 0) = 0  tfw is only used once   y14 XOR x14 -> ttd
 # x14 AND y14 -> cgt   (1 AND 1) = 1  cgt is only used once
 
+# previous was: 11100110000011110001111100000000000000
+# SWAPPING :
+# ctt for cgt   11100110000011110000001000000000000000
+# kdh for tks   11100110000000000000001000000000000000
+# z35 for z15   11000110000000000000000000000000000000
+# mhc for ghr    1000010000000000000000000000000000000  -- not quite enough
+# mhc for sms    1000010000000000000000000000000000000  -- same
+# pqn for nrr   0 !!!!! YIPPEE!
+
+# so... cgt,ctt,kdh,nrr,pqn,tks,z15,z35
 
 # x15 XOR y15 -> vqs   1 XOR 0 = 1
 # nhg XOR ttd -> vss   0 XOR 0 = 0                      y14 XOR x14 -> ttd    1 XOR 1 = 0
@@ -135,32 +147,32 @@ print("mismatch:             ",bin(mismatch).replace("0b", ""))
 # x23 XOR y23 -> tks
 # bjb OR hjf -> sbg
 
-# wqr OR tqk -> dwh
+# wqr OR tqk -> dwh     tqk 0   wqr 1 - once
 # y24 XOR x24 -> hsk
 
-# wrf OR gnt -> rmw
+# wrf OR gnt -> rmw    wrf 0   gnt 1  - once
 # y25 XOR x25 -> psg
 
-# x31 XOR y31 -> nrr
-# qnv OR bjd -> sms
+# x31 XOR y31 -> nrr nrr=0
+# qnv OR bjd -> sms    qnv 0   bjd 1  - once
 
-# y32 XOR x32 -> gds
-# pwg OR kpp -> ghr
+# y32 XOR x32 -> gds    gds 0
+# pwg OR kpp -> ghr     pwg 0 and kpp 1 - only once
 
-# sgj OR ptb -> rqf
-# x36 XOR y36 -> pqn
+# sgj OR ptb -> rqf  sgj 1  and ptb  0 only once
+# x36 XOR y36 -> pqn  pqn 1
 
-# kqk OR wbv -> jqd
-# x37 XOR y37 -> mhc
+# kqk OR wbv -> jqd  kqk 0 and wbv 1 only once
+# x37 XOR y37 -> mhc  mhc = 0
 
 # how many of the signals are only used once?
-count = 0
-countMap = defaultdict(lambda: 0)
-for gate in gates:
-    countMap[gates[gate]['inputs'][0]] = countMap[gates[gate]['inputs'][0]] +1
-    countMap[gates[gate]['inputs'][1]] = countMap[gates[gate]['inputs'][1]] +1
-
-for gate in countMap:
-    if countMap[gate] == 1:
-        print(gate)
-print(len(countMap))
+# count = 0
+# countMap = defaultdict(lambda: 0)
+# for gate in gates:
+#     countMap[gates[gate]['inputs'][0]] = countMap[gates[gate]['inputs'][0]] +1
+#     countMap[gates[gate]['inputs'][1]] = countMap[gates[gate]['inputs'][1]] +1
+#
+# for gate in countMap:
+#     if countMap[gate] == 1:
+#         print(gate, gates[gate]['value'])
+#
