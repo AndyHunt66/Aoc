@@ -124,6 +124,8 @@ print("mismatch:             ",bin(mismatch).replace("0b", ""))
 # pqn for nrr   0 !!!!! YIPPEE!
 
 # so... cgt,ctt,kdh,nrr,pqn,tks,z15,z35
+cgt,ctt,kdh,nrr,pqn,tks,z15,z35
+aaa,aoc,bbb,ccc,eee,ooo,z24,z99
 
 # x15 XOR y15 -> vqs   1 XOR 0 = 1
 # nhg XOR ttd -> vss   0 XOR 0 = 0                      y14 XOR x14 -> ttd    1 XOR 1 = 0
