@@ -3,15 +3,15 @@
 inFile = './input.txt'
 
 with open(inFile, 'r') as f:
-    ranges = f.read().strip().split(',') 
+    ranges = [[int(y),int(z)] for [y,z] in [x.split('-') for x in f.read().strip().split(',')]]
 
 total = 0
 for idrange in ranges:
-    for id in range(int(idrange[:idrange.index('-')]),int(idrange[idrange.index('-')+1:])+1):
+    for id in range(idrange[0],idrange[1]):
         test = str(id)
         t_len = len(test)
         if t_len == 1:
-            # No repeateing patterns
+            # No repeating patterns
             continue
         if t_len == 2:
             # Repeating patterns will be length 1
